@@ -2,25 +2,10 @@ import time
 import random
 import copy
 
-from game import Game
+print("\nInicializando Naval Warfare...")
+print("Hecho por Alonso.")
+print("Ver: 1.0.0")
 
-class NavalWarfare(Game):
-    name = "Naval Warfare"
-    description = "Antiguo proyecto de cuando era principiante, es sobre barcos que lucha en turnos."
-
-    def play(self):
-
-      print("\nInicializando Naval Warfare...")
-      print("Hecho por Alonso.")
-      print("Ver: 1.0.0")
-      player_name = input("Ingresa tu nombre: ")
-      player = Player(player_name)
-      player.choose_ship(ships)
-      player.show_ship()
-      enemy = Enemy()
-      enemy.enemy_select(ships)
-      player.playing(enemy)
-      
 class Battleship:
     def __init__(self, name, maxhull, damage, agility, maxammo, reload, repair):
         self.name = name
@@ -97,7 +82,7 @@ class Player:
             self.ship.stats()
         else:
             print("No barco seleccionado.")
-
+            
     def playing(self, enemy):
         while True:
             print(f"\n{self.name}: Integridad: {self.ship.hull}/{self.ship.maxhull} | Munición: {self.ship.ammo}/{self.ship.maxammo} V/S Enemigo: Integridad: {enemy.ship.hull}/{enemy.ship.maxhull} | Munición: {enemy.ship.ammo}/{enemy.ship.maxammo}")
@@ -182,7 +167,7 @@ class Player:
             print("Munición llena!")
 
         print(f"Munición actual: {self.ship.ammo}")
-
+        
     def repair(self):
         if self.ship.hull < self.ship.maxhull:
             print(f"Integridad anterior: {self.ship.hull}")
@@ -209,7 +194,7 @@ class Enemy:
     def response(self):
         responses = ["attack", "reload", "repair"]
         response = random.choice(responses)
-
+        
         while True:
             if response == "attack" and self.ship.ammo > 0:
                 self.attack()
@@ -256,3 +241,13 @@ class Enemy:
             print(f"El enemigo reparó su barco. Integridad del buque: {self.ship.hull}")
         else:
             print("El enemigo no tiene daños que reparar.")
+
+player_name = input("Ingresa tu nombre: ")
+player = Player(player_name)
+player.choose_ship(ships)
+player.show_ship()
+
+enemy = Enemy()
+enemy.enemy_select(ships)
+
+player.playing(enemy)
